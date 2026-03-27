@@ -1,4 +1,4 @@
-import { Upload, Mic, LayoutDashboard, Clock, FileText, Activity } from "lucide-react";
+import { Upload, Mic, LayoutDashboard, Clock, FileText } from "lucide-react";
 import { ViewMode } from "@/types";
 
 interface AppSidebarProps {
@@ -21,12 +21,10 @@ const AppSidebar = ({ activeView, onViewChange, hasResults }: AppSidebarProps) =
       {/* Logo */}
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center glow-border">
-            <Activity className="w-5 h-5 text-primary" />
-          </div>
+          <img src="/respond-ai.svg" alt="Respond Logo" className="w-14 h-14 rounded-sm"  />
           <div>
-            <h1 className="text-lg font-semibold text-foreground glow-text">CoughSense</h1>
-            <p className="text-xs text-muted-foreground">AI Screening</p>
+            <h1 className="text-lg font-semibold text-foreground glow-text">RESPOND</h1>
+            <p className="text-[0.50rem] text-muted-foreground">Respiratory Evaluation via Signal Processing & Online Neural Detection</p>
           </div>
         </div>
       </div>

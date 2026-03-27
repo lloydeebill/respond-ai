@@ -19,7 +19,7 @@ const ReportGenerator = ({ record }: ReportGeneratorProps) => {
     doc.setTextColor(0, 207, 255);
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
-    doc.text("CoughSense AI", 20, y + 5);
+    doc.text("Respond AI", 20, y + 5);
     doc.setFontSize(10);
     doc.setTextColor(180, 200, 220);
     doc.text("Respiratory Disease Screening Report", 20, y + 14);
@@ -123,7 +123,7 @@ const ReportGenerator = ({ record }: ReportGeneratorProps) => {
     );
     doc.text("professional for proper evaluation and treatment.", 24, y + 13);
 
-    doc.save(`CoughSense_Report_${record.id.slice(0, 8)}.pdf`);
+    doc.save(`Respond_Report_${record.id.slice(0, 8)}.pdf`);
   };
 
   return (

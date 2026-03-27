@@ -58,12 +58,12 @@ export function createRecord(
 export function saveRecord(record: AnalysisRecord) {
   const history = getHistory();
   history.unshift(record);
-  localStorage.setItem("coughsense_history", JSON.stringify(history.slice(0, 50)));
+  localStorage.setItem("respond_history", JSON.stringify(history.slice(0, 50)));
 }
 
 export function getHistory(): AnalysisRecord[] {
   try {
-    return JSON.parse(localStorage.getItem("coughsense_history") || "[]");
+    return JSON.parse(localStorage.getItem("respond_history") || "[]");
   } catch {
     return [];
   }

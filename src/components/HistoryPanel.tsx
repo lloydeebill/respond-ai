@@ -22,7 +22,7 @@ const HistoryPanel = ({ onSelect }: HistoryPanelProps) => {
   }, []);
 
   const clearHistory = () => {
-    localStorage.removeItem("coughsense_history");
+    localStorage.removeItem("respond_history");
     setHistory([]);
   };
 

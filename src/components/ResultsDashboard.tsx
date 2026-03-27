@@ -11,11 +11,32 @@ const riskConfig = {
   High: { color: "text-destructive", bg: "bg-destructive/10", border: "border-destructive/30", icon: AlertTriangle, label: "High Risk" },
   Moderate: { color: "text-warning", bg: "bg-warning/10", border: "border-warning/30", icon: Shield, label: "Moderate Risk" },
   Low: { color: "text-success", bg: "bg-success/10", border: "border-success/30", icon: CheckCircle, label: "Low Risk" },
+} as const;
+
+const calculateRiskLevel = (topCondition: string, predictions: Record<string, number>): "High" | "Moderate" | "Low" => {
+  // If the top prediction is healthy, it is ALWAYS Low Risk
+  if (topCondition.toLowerCase() === "healthy") {
+    return "Low";
+  }
+
+  // Get the actual probability of the top predicted disease
+  const topProb = predictions[topCondition] || 0;
+
+  // Set ranges for risk (You can adjust these decimals as needed)
+  if (topProb >= 0.70) {
+    return "High";      // 70% or higher confidence in a disease
+  } else if (topProb >= 0.40) {
+    return "Moderate";  // 40% to 69% confidence in a disease
+  } else {
+    return "Low";       // Less than 40% confidence
+  }
 };
 
 const ResultsDashboard = ({ record }: ResultsDashboardProps) => {
   const sorted = Object.entries(record.predictions).sort((a, b) => b[1] - a[1]);
-  const risk = riskConfig[record.riskLevel];
+  
+  const dynamicRiskLevel = calculateRiskLevel(record.topCondition, record.predictions);
+  const risk = riskConfig[dynamicRiskLevel];
   const RiskIcon = risk.icon;
 
   return (
