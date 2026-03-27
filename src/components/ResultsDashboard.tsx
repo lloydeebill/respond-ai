@@ -13,6 +13,14 @@ const riskConfig = {
   Low: { color: "text-success", bg: "bg-success/10", border: "border-success/30", icon: CheckCircle, label: "Low Risk" },
 } as const;
 
+const formatCondition = (name: string) => {
+  if (!name) return "";
+  // Special case for COPD acronym
+  if (name.toLowerCase() === "copd") return "COPD";
+  // Capitalize first letter, lowercase the rest
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};
+
 const calculateRiskLevel = (topCondition: string, predictions: Record<string, number>): "High" | "Moderate" | "Low" => {
   // If the top prediction is healthy, it is ALWAYS Low Risk
   if (topCondition.toLowerCase() === "healthy") {
@@ -50,7 +58,10 @@ const ResultsDashboard = ({ record }: ResultsDashboardProps) => {
           className="glass-card p-5 text-center"
         >
           <p className="text-xs text-muted-foreground mb-2">Top Prediction</p>
-          <p className="text-2xl font-bold text-primary glow-text">{record.topCondition}</p>
+          {/* 🔥 UPDATED: Applied the formatter here */}
+          <p className="text-2xl font-bold text-primary glow-text">
+            {formatCondition(record.topCondition)}
+          </p>
           <p className="text-sm font-mono text-primary/70 mt-1">
             {Math.round(record.predictions[record.topCondition as keyof typeof record.predictions] * 100)}%
           </p>
@@ -98,7 +109,8 @@ const ResultsDashboard = ({ record }: ResultsDashboardProps) => {
           {sorted.map(([label, value], idx) => (
             <ProbabilityBar
               key={label}
-              label={label}
+              // 🔥 UPDATED: Applied the formatter to the probability bars list
+              label={formatCondition(label)}
               value={value}
               rank={idx + 1}
               isTop={idx === 0}
